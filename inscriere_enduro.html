@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Înscriere Concurs Enduro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>ENDURO CROSS ROYAL</h1>
+        <nav>
+            <ul>
+                <li><a href="#inscriere">Înscriere</a></li>
+                <li><a href="#regulament">Regulament</a></li>
+                <li><a href="#galerie">Galerie</a></li>
+                <li><a href="#traseu">Traseu</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="inscriere">
+        <h2>Înscrie-te acum!</h2>
+        <form id="formInscriere">
+            <label for="nume">Nume:</label>
+            <input type="text" id="nume" name="nume" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="telefon">Telefon:</label>
+            <input type="tel" id="telefon" name="telefon" required>
+            
+            <label for="categorie">Categorie:</label>
+            <select id="categorie" name="categorie">
+                <option>Pro</option>
+                <option>Hobby</option>
+                <option>Veterani</option>
+            </select>
+            
+            <button type="submit">Înscriere</button>
+        </form>
+        <p id="confirmare" style="display: none; color: green;">Înscriere reușită! Veți primi un email de confirmare.</p>
+    </section>
+    
+    <section id="regulament">
+        <h2>Regulament</h2>
+        <p>Aici se vor regăsi regulile oficiale ale competiției.</p>
+    </section>
+    
+    <section id="galerie">
+        <h2>Galerie</h2>
+        <p>Imagini și videoclipuri din edițiile anterioare.</p>
+    </section>
+    
+    <section id="traseu">
+        <h2>Harta traseului</h2>
+        <p>Va fi integrată o hartă cu traseul cursei.</p>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Concurs Enduro | Contact: info@enduro.com</p>
+    </footer>
+
+    <script>
+        document.getElementById('formInscriere').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            fetch('/inscriere', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('confirmare').style.display = 'block';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
